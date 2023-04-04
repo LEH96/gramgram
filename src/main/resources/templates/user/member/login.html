@@ -1,0 +1,49 @@
+<html layout:decorate="~{user/layout/layout.html}" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+  <title>회원가입</title>
+</head>
+<body>
+<main layout:fragment="main">
+<script>
+  function LoginForm_submit(form) {
+
+    form.username.value = form.username.value.trim() //좌우공백제거
+    form.password.value = form.password.value.trim()
+
+    //username 이 올바른지 체크
+    if(form.username.value.length == 0){
+      form.username.focus();
+      toastWarning("아이디를 입력해주세요.");
+      return;
+    } else if(form.username.value.length < 4) {
+      form.username.focus();
+      toastWarning("아이디를 4자 이상 입력해주세요.");
+      return;
+    }
+    //password 이 올바른지 체크
+    if(form.password.value.length == 0){
+      form.password.focus();
+      toastWarning("비밀번호를 입력해주세요.");
+      return;
+    } else if(form.password.value.length < 4) {
+      form.password.focus();
+      toastWarning("비밀번호를 4자 이상 입력해주세요.");
+      return;
+    }
+    form.submit(); //폼 발송
+  }
+</script>
+<form th:action method="post" class="p-10 flex flex-col gap-4" onsubmit="LoginForm_submit(this); return false;">
+  <div>
+    <input type="text" name="username" maxlength="30" placeholder="아이디" class="input input-bordered">
+  </div>
+  <div>
+    <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered">
+  </div>
+  <div>
+    <input type="submit" value="로그인" class="btn btn-primary">
+  </div>
+</form>
+</main>
+</body>
+</html>
